@@ -235,7 +235,7 @@
             'option4' : `Prancer`,
         },
         9 : {
-            'movie' : `muppetChristmasCarol.jpg`,
+            'movie' : `muppetChrisCarol.jpg`,
             'correctOption' : `Muppet Christmas Carol`,
             'option1' : `Arthur Christmas`,
             'option2' : `Muppet Christmas Carol`,
@@ -243,68 +243,76 @@
             'option4' : `Four Christmases`,
         },
         10 : {
-            'movie' : `jingleAllTheWay.jpg`,
-            'correctOption' : `Jingle All The Way`,
-            'option1' : `Meet Me In St. Louis`,
-            'option2' : `It's A Wonderful Life`,
-            'option3' : `Jingle All The Way`,
-            'option4' : `Jack Frost`,
+            'movie' : `Silentnightdeadlynight.jpg`,
+            'correctOption' : `Silent Night Deadly Night`,
+            'option1' : `Jack Frost`,
+            'option2' : `Violent Night`,
+            'option3' : `Silent Night Deadly Night`,
+            'option4' : `Krampus`,
         },
         11 : {
-            'movie' : `christmasVacation.jpg`,
-            'correctOption' : `National Lampoon's Christmas Vacation`,
-            'option1' : `Christmas With the Kranks`,
-            'option2' : `National Lampoon's Christmas Vacation`,
-            'option3' : `The Holiday`,
-            'option4' : `Love Actually`,
+            'movie' : `homealone2.jpg`,
+            'correctOption' : `Home Alone 2`,
+            'option1' : `Home Alone`,
+            'option2' : `Home Alone 2`,
+            'option3' : `Home Alone 3`,
+            'option4' : `Home Alone 4`,
         },
         12 : {
-            'movie' : `jingleAllTheWay.jpg`,
-            'correctOption' : `Jingle All The Way`,
-            'option1' : `Meet Me In St. Louis`,
-            'option2' : `It's A Wonderful Life`,
-            'option3' : `Jingle All The Way`,
-            'option4' : `Jack Frost`,
+            'movie' : `krampus.jpg`,
+            'correctOption' : `Krampus`,
+            'option1' : `Violent Night`,
+            'option2' : `Die Hard`,
+            'option3' : `Nightmare Before Christmas`,
+            'option4' : `Krampus`,
         },
         13 : {
-            'movie' : `christmasVacation.jpg`,
-            'correctOption' : `National Lampoon's Christmas Vacation`,
-            'option1' : `Christmas With the Kranks`,
-            'option2' : `National Lampoon's Christmas Vacation`,
-            'option3' : `The Holiday`,
+            'movie' : `badSanta.jpg`,
+            'correctOption' : `Bad Santa`,
+            'option1' : `Bad Santa`,
+            'option2' : `Christmas With the Kranks`,
+            'option3' : `Serendipidity`,
             'option4' : `Love Actually`,
         },
         14 : {
-            'movie' : `jingleAllTheWay.jpg`,
-            'correctOption' : `Jingle All The Way`,
-            'option1' : `Meet Me In St. Louis`,
-            'option2' : `It's A Wonderful Life`,
-            'option3' : `Jingle All The Way`,
-            'option4' : `Jack Frost`,
+            'movie' : `lastExmas.jpg`,
+            'correctOption' : `Last ExMas`,
+            'option1' : `Serendipity`,
+            'option2' : `Trains, Planes, and Automobiles`,
+            'option3' : `Home Alone`,
+            'option4' : `Last ExMas`,
         },
         15 : {
-            'movie' : `christmasVacation.jpg`,
-            'correctOption' : `National Lampoon's Christmas Vacation`,
-            'option1' : `Christmas With the Kranks`,
-            'option2' : `National Lampoon's Christmas Vacation`,
+            'movie' : `aChristmasStory.jpg`,
+            'correctOption' : `A Christmas Story`,
+            'option1' : `Love Actually`,
+            'option2' : `A Christmas Story`,
             'option3' : `The Holiday`,
-            'option4' : `Love Actually`,
+            'option4' : `Happiest Season`,
         },
         16 : {
-            'movie' : `jingleAllTheWay.jpg`,
-            'correctOption' : `Jingle All The Way`,
-            'option1' : `Meet Me In St. Louis`,
-            'option2' : `It's A Wonderful Life`,
-            'option3' : `Jingle All The Way`,
+            'movie' : `nightmareBeforeChristmas.jpg`,
+            'correctOption' : `Nightmare Before Christmas`,
+            'option1' : `Batman Returns`,
+            'option2' : `Nightmare Before Christmas`,
+            'option3' : `Silent Night Deadly Night 2`,
             'option4' : `Jack Frost`,
         },
         17 : {
-            'movie' : `jingleAllTheWay.jpg`,
-            'correctOption' : `Jingle All The Way`,
-            'option1' : `Meet Me In St. Louis`,
-            'option2' : `It's A Wonderful Life`,
-            'option3' : `Jingle All The Way`,
-            'option4' : `Jack Frost`,
+            'movie' : `dieHard.jpg`,
+            'correctOption' : `Die Hard`,
+            'option1' : `Ghostbusters 2`,
+            'option2' : `Maniac`,
+            'option3' : `Die Hard`,
+            'option4' : `Home Alone`,
+        },
+        18 : {
+            'movie' : `jackFrost.jpg`,
+            'correctOption' : `Jack Frost`,
+            'option1' : `I'll Be Home For Christmas`,
+            'option2' : `Jack Frost`,
+            'option3' : `White Christmas`,
+            'option4' : `The Polar Express`,
         },
     };
     
@@ -333,7 +341,7 @@
 
     let setCounter = () => {
         clearInterval(timerCounter)
-        counter = 500;
+        counter = 1000;
         timerCounter = setInterval(scoreDown, 10);
     }
     let resetCounter = () => 
@@ -346,7 +354,7 @@
             counter--;
             const currentBlur = counter / 1000;
             const currentHue = counter / 2;
-            const currentSkew = counter / 10;
+            const currentSkew = counter / 20;
             movieImage.style.webkitFilter = `blur(${currentBlur}rem)`;
             movieImage.style.opacity = `blur(${currentBlur}rem)`;
             image.style.webkitFilter = `hue-rotate(${currentHue}deg)`;
@@ -361,7 +369,7 @@
     
     const advanceScreen = number => {
         // remove classes from previous answers and restart counter
-        counter = 500;
+        counter = 1000;
         document.querySelector('.timer').innerHTML = counter;
 
         // repopulate div with button choices
@@ -431,7 +439,7 @@
     document.querySelector('.next').addEventListener('click', e => {
         e.preventDefault();
         document.querySelector('.next').style.visibility = 'hidden';
-        if (currentQuestion == 3) {
+        if (currentQuestion == 6) {
             const answerPush = push(dbRef, answerList);
             advanceToFinal();
         } else {
