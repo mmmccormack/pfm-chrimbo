@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        background: #050505;
+        color: #efefef;
+        font-size: 125%;
+        font-family: 'Poppins', sans-serif;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+    h1 {
+        text-align: center;
+    }
+    button, input {
+        font-family: 'Poppins', sans-serif;
+    }
+    .startup {
+        position: absolute;
+        width: 100%;
+        height: 100vh;
+        z-index: 100;
+        background: #050505;
+        text-align: center;
+    }
+    .nameBox,
+    .gameScreen,
+    .poster,
+    .choices {
+        display: flex;
+    }
+    .nameBox,
+    .poster,
+    .choices {
+        flex-direction: column;
+        width: 50%;
+        align-items: center;
+    }
+    .nameBox {
+        margin: 0 auto;
+        justify-content: center;
+        align-items: center;
+    }
+    .movieImage {
+        width: 300px;
+        filter: blur(1rem);
+    }
+    img {
+        width: 100%;
+        filter: hue-rotate(90deg);
+        transform: skew(50deg, 50deg)
+    }
+    
+    .timer {
+        font-size: 300%;
+        text-align: center;
+        width: 300px;
+    }
+    .choices {
+        justify-content: center;
+    }
+    .option {
+        border: 2px solid white;
+        outline: 2px solid crimson;
+        border-radius: 8px;
+        background: azure;
+        color: #050505;
+        height: 50px;
+        width: 50%;
+        margin: 0 auto;
+        align-content: center;
+        text-align: center;
+        margin: 10px auto;
+    }
+    .option:hover {
+        border: papayawhip;
+    }
+    .green {
+        background: lightgreen;
+    }
+    .red {
+        background: tomato;
+    }
+    .next, .start {
+        margin: 0 auto;
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        height: 50px;
+        align-items: center;
+    }
+    .error {
+        visibility: hidden;
+    }
+    h4 {
+        text-align: center;
+    }
+</style>
+<body>
+    <div class="startup">
+        <h1>Guess the Holiday Movie!</h1>
+        <h2>(based on it's poster)</h2>
+        
+        <h3>Please enter your name in this box but don't press start until we're all ready to go!</h3>
+        <div class="nameBox">
+            <input type="text" id="name">
+            <p class="error">Please enter a name - preferably yours.</p>
+            <button class="start">Start</button>
+        </div>
+
+    </div>
+    <div class="gameScreen">
+        <div class="poster">
+            <div class="movieImage"><img id="posterImage" src alt="no cheating!"></div>
+            <div class="timer"></div>
+        </div>
+        <div class="choices">
+            <button class="option option1"></button>
+            <button class="option option2"></button>
+            <button class="option option3"></button>
+            <button class="option option4"></button>
+        </div>
+    </div>
+    <button class="next">Next (click when everyone is ready)</button>
+    <div class="finalScores"></div>
+</body>
+<script type="module">
+
+    // Import the functions you need from the SDKs you need
+  
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+    import { getDatabase, ref, get, set, push, update, onValue} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+  
+    // TODO: Add SDKs for Firebase products that you want to use
+  
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+  
+    // Your web app's Firebase configuration
+  
+    const firebaseConfig = {
+      apiKey: "AIzaSyBaiNnTMf4JysBjtF8VTSSdMuUjp_rHDds",
+      authDomain: "pfm-chrimbo.firebaseapp.com",
+      projectId: "pfm-chrimbo",
+      storageBucket: "pfm-chrimbo.firebasestorage.app",
+      messagingSenderId: "810861904010",
+      appId: "1:810861904010:web:17b7f8b6ac24ec8b7fad73"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const dbRef = ref(database);
+
+    const answerList = {
+        'name' : '',
+        'score' : 0
+    }
+    let currentQuestion = 1;
+
+    const movieList = [`A Christmas Story`,`Black Christmas`,`Bad Santa`,`National Lampoon's Christmas Vacation`,`Die Hard`,`Elf`,`Eyes Wide Shut`,`Gremlins`,`Home Alone 2`,`It's A Wonderful Life`,`Jingle All The Way`,`Krampus`,`Last Exmas`,`Muppet Christmas Carol`,`Nightmare Before Christmas`,`Prancer`,`Silent Night Deadly Night`];
+
+    const movieMasterKey = {
+        1 : {
+            'movie' : `christmasVacation.jpg`,
+            'correctOption' : `National Lampoon's Christmas Vacation`,
+            'option1' : `Christmas With the Kranks`,
+            'option2' : `National Lampoon's Christmas Vacation`,
+            'option3' : `The Holiday`,
+            'option4' : `Love Actually`,
+        },
+        2 : {
+            'movie' : `jingleAllTheWay.jpg`,
+            'correctOption' : `Jingle All The Way`,
+            'option1' : `Meet Me In St. Louis`,
+            'option2' : `It's A Wonderful Life`,
+            'option3' : `Jingle All The Way`,
+            'option4' : `Jack Frost`,
+        },
+        3 : {
+            'movie' : `gremlins.jpg`,
+            'correctOption' : `Gremlins`,
+            'option1' : `Gremlins`,
+            'option2' : `Die Hard`,
+            'option3' : `Krampus`,
+            'option4' : `Batman Returns`,
+        },
+        4 : {
+            'movie' : `itsAWonderfulLife.jpg`,
+            'correctOption' : `It's A Wonderful Life`,
+            'option1' : `Meet Me In St. Louis`,
+            'option2' : `It's A Wonderful Life`,
+            'option3' : `How The Grinch Stole Christmas`,
+            'option4' : `Muppet Christmas Carol`,
+        },
+        5 : {
+            'movie' : `blackChristmas.jpg`,
+            'correctOption' : `Black Christmas`,
+            'option1' : `Home Alone`,
+            'option2' : `The Nightmare Before Christmas`,
+            'option3' : `I'll Be Home For Christmas`,
+            'option4' : `Black Christmas`,
+        },
+        6 : {
+            'movie' : `elf.jpg`,
+            'correctOption' : `Elf`,
+            'option1' : `White Christmas`,
+            'option2' : `The Holiday`,
+            'option3' : `Elf`,
+            'option4' : `Spirited`,
+        },
+        7 : {
+            'movie' : `eyesWideShut.jpg`,
+            'correctOption' : `Eyes Wide Shut`,
+            'option1' : `Eyes Wide Shut`,
+            'option2' : `Violent Night`,
+            'option3' : `Silent Night Deadly Night`,
+            'option4' : `The Polar Express`,
+        },
+        8 : {
+            'movie' : `prancer.jpg`,
+            'correctOption' : `Prancer`,
+            'option1' : `The Christmas Chronicles`,
+            'option2' : `Deck The Halls`,
+            'option3' : `Home Alone 2`,
+            'option4' : `Prancer`,
+        },
+        9 : {
+            'movie' : `muppetChristmasCarol.jpg`,
+            'correctOption' : `Muppet Christmas Carol`,
+            'option1' : `Arthur Christmas`,
+            'option2' : `Muppet Christmas Carol`,
+            'option3' : `Hot Frosty`,
+            'option4' : `Four Christmases`,
+        },
+        10 : {
+            'movie' : `jingleAllTheWay.jpg`,
+            'correctOption' : `Jingle All The Way`,
+            'option1' : `Meet Me In St. Louis`,
+            'option2' : `It's A Wonderful Life`,
+            'option3' : `Jingle All The Way`,
+            'option4' : `Jack Frost`,
+        },
+        11 : {
+            'movie' : `christmasVacation.jpg`,
+            'correctOption' : `National Lampoon's Christmas Vacation`,
+            'option1' : `Christmas With the Kranks`,
+            'option2' : `National Lampoon's Christmas Vacation`,
+            'option3' : `The Holiday`,
+            'option4' : `Love Actually`,
+        },
+        12 : {
+            'movie' : `jingleAllTheWay.jpg`,
+            'correctOption' : `Jingle All The Way`,
+            'option1' : `Meet Me In St. Louis`,
+            'option2' : `It's A Wonderful Life`,
+            'option3' : `Jingle All The Way`,
+            'option4' : `Jack Frost`,
+        },
+        13 : {
+            'movie' : `christmasVacation.jpg`,
+            'correctOption' : `National Lampoon's Christmas Vacation`,
+            'option1' : `Christmas With the Kranks`,
+            'option2' : `National Lampoon's Christmas Vacation`,
+            'option3' : `The Holiday`,
+            'option4' : `Love Actually`,
+        },
+        14 : {
+            'movie' : `jingleAllTheWay.jpg`,
+            'correctOption' : `Jingle All The Way`,
+            'option1' : `Meet Me In St. Louis`,
+            'option2' : `It's A Wonderful Life`,
+            'option3' : `Jingle All The Way`,
+            'option4' : `Jack Frost`,
+        },
+        15 : {
+            'movie' : `christmasVacation.jpg`,
+            'correctOption' : `National Lampoon's Christmas Vacation`,
+            'option1' : `Christmas With the Kranks`,
+            'option2' : `National Lampoon's Christmas Vacation`,
+            'option3' : `The Holiday`,
+            'option4' : `Love Actually`,
+        },
+        16 : {
+            'movie' : `jingleAllTheWay.jpg`,
+            'correctOption' : `Jingle All The Way`,
+            'option1' : `Meet Me In St. Louis`,
+            'option2' : `It's A Wonderful Life`,
+            'option3' : `Jingle All The Way`,
+            'option4' : `Jack Frost`,
+        },
+        17 : {
+            'movie' : `jingleAllTheWay.jpg`,
+            'correctOption' : `Jingle All The Way`,
+            'option1' : `Meet Me In St. Louis`,
+            'option2' : `It's A Wonderful Life`,
+            'option3' : `Jingle All The Way`,
+            'option4' : `Jack Frost`,
+        },
+    };
+    
+    // answer logic
+    const showAnswer = () => {
+        const options = document.querySelectorAll('.option');
+        options.forEach(option => {
+            option.disabled = true;
+            if (option.classList[2] == 'correct') {
+                option.classList.add('green');
+            } else {
+                option.classList.add('red');
+            }
+        })
+        document.querySelector('.next').style.visibility = 'visible';
+    }
+
+    const scoreAnswer = () => {
+        const currentScore = answerList.score + counter;
+        answerList.score = currentScore;
+    }
+
+    // timer
+    let counter;
+    let timerCounter;
+
+    let setCounter = () => {
+        clearInterval(timerCounter)
+        counter = 500;
+        timerCounter = setInterval(scoreDown, 10);
+    }
+    let resetCounter = () => 
+
+    document.querySelector('.timer').innerHTML = counter;
+    const movieImage = document.querySelector('.movieImage');
+    const image = document.getElementById('posterImage');
+    const scoreDown = () => {
+        if (counter > 0) {
+            counter--;
+            const currentBlur = counter / 1000;
+            const currentHue = counter / 2;
+            const currentSkew = counter / 10;
+            movieImage.style.webkitFilter = `blur(${currentBlur}rem)`;
+            movieImage.style.opacity = `blur(${currentBlur}rem)`;
+            image.style.webkitFilter = `hue-rotate(${currentHue}deg)`;
+            image.style.transform = `skew(${currentSkew}deg, 0deg)`;
+        } else {
+            clearInterval(timerCounter);
+            showAnswer();
+        }
+        document.querySelector('.timer').innerHTML = counter;
+    }
+    
+    
+    const advanceScreen = number => {
+        // remove classes from previous answers and restart counter
+        counter = 500;
+        document.querySelector('.timer').innerHTML = counter;
+
+        // repopulate div with button choices
+        const choices = document.querySelector('.choices')
+        choices.innerHTML = '';
+        for (let i = 1; i < 5; i++) {
+            const button = document.createElement('button');
+            button.classList.add(`option`, `option${i}`);
+            choices.appendChild(button)
+        }
+
+        const options = document.querySelectorAll('.option');
+        const correctAnswer = movieMasterKey[number]['correctOption'];
+        document.getElementById('posterImage').src = `./${movieMasterKey[number]['movie']}`
+        // buttons with choices
+    
+        options.forEach((option, index) => {
+            option.innerText = movieMasterKey[number][`option${index+1}`];
+            if (option.innerText == correctAnswer) {
+                option.classList.add('correct');
+            } else {
+                option.classList.add('incorrect');
+            }
+            option.addEventListener('click', e => {
+                const answer = e.target.classList[2];
+                showAnswer();
+                if (answer == 'correct') {
+                    scoreAnswer();
+                }
+            })
+        })
+        setCounter();
+        currentQuestion = number+1;
+    }
+
+    const advanceToFinal = () => {
+        document.querySelector('.next').style.display = 'none';
+        document.querySelector('.gameScreen').style.display = 'none';
+        const finalScoreContainer = document.querySelector('.finalScores');
+        const finalHeadline = document.createElement('h1');
+        finalHeadline.innerText = `Final Scores`;
+        finalScoreContainer.appendChild(finalHeadline);
+
+        get(dbRef).then((snapshot) => {
+            if(snapshot.exists()){
+                let dbSnapshot = snapshot.val();
+                for (let player in dbSnapshot) {
+                    const playerScore = document.createElement('h4');
+                    playerScore.innerHTML = `
+                    ${dbSnapshot[player]['name']} - ${dbSnapshot[player]['score']}
+                    `;
+                    finalScoreContainer.appendChild(playerScore);
+                }
+            } else {
+                console.log("No data available")
+            }
+            // REMOVE THIS WHEN READY
+            }).then(() => {
+                const childRef = ref(database);
+                return set(childRef, null);
+            }).catch((error) => {
+            console.log(error)
+        });
+
+    }
+
+    document.querySelector('.next').addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelector('.next').style.visibility = 'hidden';
+        if (currentQuestion == 3) {
+            const answerPush = push(dbRef, answerList);
+            advanceToFinal();
+        } else {
+            advanceScreen(currentQuestion);
+        }
+    })
+    document.querySelector('.start').addEventListener('click', e => {
+        e.preventDefault();
+        const name = document.getElementById('name').value;
+        console.log(name)
+        if (name == '' || name == undefined) {
+            document.querySelector('.error').style.visibility = 'visible';
+        } else {
+            document.querySelector('.error').style.visibility = 'hidden';
+            document.querySelector('.startup').style.display = 'none';
+            document.querySelector('.next').style.visibility = 'hidden';
+            answerList.name = name;
+            advanceScreen(currentQuestion);
+        }
+    })
+</script>
+
+</html>
