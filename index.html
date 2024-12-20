@@ -59,7 +59,6 @@
         filter: hue-rotate(90deg);
         transform: skew(50deg, 50deg)
     }
-    
     .timer {
         font-size: 300%;
         text-align: center;
@@ -103,6 +102,7 @@
     }
     h4 {
         text-align: center;
+        margin: 5px auto;
     }
 </style>
 <body>
@@ -405,16 +405,11 @@
         currentQuestion = number+1;
     }
 
-    const advanceToFinal = () => {
-        document.querySelector('.next').style.display = 'none';
-        document.querySelector('.gameScreen').style.display = 'none';
-        const finalScoreContainer = document.querySelector('.finalScores');
-        const finalHeadline = document.createElement('h1');
-        finalHeadline.innerText = `Final Scores`;
-        finalScoreContainer.appendChild(finalHeadline);
-
+    const displayScores = () => {
         get(dbRef).then((snapshot) => {
             if(snapshot.exists()){
+                const finalScoreContainer = document.querySelector('.finalScores');
+                document.querySelector('.loading').style.display = 'none';
                 let dbSnapshot = snapshot.val();
                 for (let player in dbSnapshot) {
                     const playerScore = document.createElement('h4');
@@ -429,10 +424,21 @@
         })
     }
 
+    const advanceToFinal = () => {
+        document.querySelector('.next').style.display = 'none';
+        document.querySelector('.gameScreen').style.display = 'none';
+        const finalScoreContainer = document.querySelector('.finalScores');
+        const finalHeadline = document.createElement('h1');
+        finalHeadline.innerHTML = `Final Scores <span class="loading">Loading...</span>`;
+        finalScoreContainer.appendChild(finalHeadline);
+
+        const showScores = setTimeout(displayScores, 3000)
+    }
+
     document.querySelector('.next').addEventListener('click', e => {
         e.preventDefault();
         document.querySelector('.next').style.visibility = 'hidden';
-        if (currentQuestion == 18) {
+        if (currentQuestion == 4) {
             const answerPush = push(dbRef, answerList);
             advanceToFinal();
         } else {
