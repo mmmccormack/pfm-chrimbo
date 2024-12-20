@@ -421,6 +421,9 @@
             } else {
                 console.log("No data available")
             }
+        }).then(() => {
+            const childRef = ref(database);
+            return set(childRef, null);
         })
     }
 
