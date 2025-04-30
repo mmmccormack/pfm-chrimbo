@@ -1,0 +1,119 @@
+body {
+    background: #050505;
+    color: #efefef;
+    font-size: 125%;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+    margin: 0 auto;
+}
+h1 {
+    text-align: center;
+}
+button, input {
+    font-family: 'Poppins', sans-serif;
+}
+.startup {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    z-index: 100;
+    background: #050505;
+    text-align: center;
+}
+.nameBox,
+.gameScreen,
+.poster,
+.choices {
+    display: flex;
+}
+.nameBox,
+.poster,
+.choices {
+    flex-direction: column;
+    width: 50%;
+    align-items: center;
+}
+.nameBox {
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+}
+.movieImage {
+    width: 300px;
+    filter: blur(1rem);
+}
+img {
+    width: 100%;
+    filter: hue-rotate(90deg);
+    transform: skew(50deg, 50deg)
+}
+.timer {
+    font-size: 300%;
+    text-align: center;
+    width: 300px;
+}
+.choices {
+    justify-content: center;
+}
+.option {
+    border: 2px solid white;
+    outline: 2px solid crimson;
+    border-radius: 8px;
+    background: azure;
+    color: #050505;
+    height: 50px;
+    width: 50%;
+    align-content: center;
+    text-align: center;
+    margin: 10px auto;
+}
+.option:hover {
+    border: papayawhip;
+}
+.green {
+    background: lightgreen;
+}
+.red {
+    background: tomato;
+}
+.next, .start {
+    margin: 0 auto;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    height: 50px;
+    align-items: center;
+}
+.error {
+    visibility: hidden;
+}
+h4 {
+    text-align: center;
+    margin: 5px auto;
+}
+@media (max-width: 768px) {
+    .gameScreen {
+        flex-direction: column;
+        align-items: center;
+    }
+    .choices {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .option {
+        width: 90%;
+    }
+    .nameBox,
+    .poster,
+    .choices {
+        width: 100%;
+    }
+    img,
+    .movieImage {
+        max-height: 350px;
+    }
+    .next {
+        width: 90%;
+    }
+}
+@media (max-width: 480px) {}

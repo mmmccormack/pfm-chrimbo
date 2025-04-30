@@ -4,107 +4,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PFM Guess the Movie</title>
 </head>
-<style>
-    body {
-        background: #050505;
-        color: #efefef;
-        font-size: 125%;
-        font-family: 'Poppins', sans-serif;
-        overflow: hidden;
-        margin: 0 auto;
-    }
-    h1 {
-        text-align: center;
-    }
-    button, input {
-        font-family: 'Poppins', sans-serif;
-    }
-    .startup {
-        position: absolute;
-        width: 100%;
-        height: 100vh;
-        z-index: 100;
-        background: #050505;
-        text-align: center;
-    }
-    .nameBox,
-    .gameScreen,
-    .poster,
-    .choices {
-        display: flex;
-    }
-    .nameBox,
-    .poster,
-    .choices {
-        flex-direction: column;
-        width: 50%;
-        align-items: center;
-    }
-    .nameBox {
-        margin: 0 auto;
-        justify-content: center;
-        align-items: center;
-    }
-    .movieImage {
-        width: 300px;
-        filter: blur(1rem);
-    }
-    img {
-        width: 100%;
-        filter: hue-rotate(90deg);
-        transform: skew(50deg, 50deg)
-    }
-    .timer {
-        font-size: 300%;
-        text-align: center;
-        width: 300px;
-    }
-    .choices {
-        justify-content: center;
-    }
-    .option {
-        border: 2px solid white;
-        outline: 2px solid crimson;
-        border-radius: 8px;
-        background: azure;
-        color: #050505;
-        height: 50px;
-        width: 50%;
-        margin: 0 auto;
-        align-content: center;
-        text-align: center;
-        margin: 10px auto;
-    }
-    .option:hover {
-        border: papayawhip;
-    }
-    .green {
-        background: lightgreen;
-    }
-    .red {
-        background: tomato;
-    }
-    .next, .start {
-        margin: 0 auto;
-        width: 50%;
-        display: flex;
-        justify-content: center;
-        height: 50px;
-        align-items: center;
-    }
-    .error {
-        visibility: hidden;
-    }
-    h4 {
-        text-align: center;
-        margin: 5px auto;
-    }
-</style>
 <body>
     <div class="startup">
         <h1>Guess the Holiday Movie!</h1>
@@ -363,7 +268,8 @@
             clearInterval(timerCounter);
             showAnswer();
         }
-        document.querySelector('.timer').innerHTML = counter;
+        let visualCounter = counter / 100
+        document.querySelector('.timer').innerHTML = Math.round(visualCounter);
     }
     
     
