@@ -77,7 +77,7 @@ import { dbRef, get } from "./firebase.js";
             'uh oh' : 0,
             'look at that!' : 0,
             'somebody did something' : 0,
-            'I`m looking now`' : 0,
+            'I`m looking now' : 0,
             '' : 0,
         },
     }

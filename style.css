@@ -215,7 +215,7 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}bo
         text-align: center;
     }
     .emoji {
-        padding: 0px 20px 20px;
+        padding: 20px;
     }
     .question {
         padding: 40px 20px 0px;
@@ -228,7 +228,11 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}bo
         max-width: 320px;
     }
     .emoji {
-        font-size: 600%;
+        margin: 0 auto;
+    }
+    .emoji img {
+        max-width: 64px;
+        height: auto;
     }
     .response {
         width: max-content;
@@ -322,6 +326,9 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}bo
     }
     .bonusRound {
         width: 100%;
+    }
+    .screen .nes-btn {
+        margin-top: 20px;
     }
     .madLibsScreen {
         align-items: center;

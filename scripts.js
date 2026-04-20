@@ -102,44 +102,48 @@ import { dbRef, get, push, update } from "./firebase.js";
     }
 
     // timer
-    let counter;
-    let timerCounter;
-    let currentScore = 0;
+    // let counter;
+    // let timerCounter;
+    // let currentScore = 0;
 
-    let setCounter = () => {
-        clearInterval(timerCounter)
-        counter = 950;
-        timerCounter = setInterval(scoreDown, 10);
-    }
-    let resetCounter = () =>
+    // let setCounter = () => {
+    //     clearInterval(timerCounter)
+    //     counter = 950;
+    //     timerCounter = setInterval(scoreDown, 10);
+    // }
+    // let resetCounter = () =>
 
-    document.querySelector('.nes-progress').value = counter;
-    const scoreDown = () => {
-        if (counter > 0) {
-            counter--;
-        } else {
-            clearInterval(timerCounter);
-            lockOptions();
-        }
-        let visualCounter = counter / 10
-        document.querySelector('.nes-progress').value = visualCounter;
-    }
+    // document.querySelector('.nes-progress').value = counter;
+    // const scoreDown = () => {
+    //     if (counter > 0) {
+    //         counter--;
+    //     } else {
+    //         clearInterval(timerCounter);
+    //         lockOptions();
+    //     }
+    //     let visualCounter = counter / 10
+    //     document.querySelector('.nes-progress').value = visualCounter;
+    // }
 
-    const lockOptions = () => {
-        const optionButtons = document.querySelectorAll('.optionButton');
-        optionButtons.forEach(optionButton => {
-            optionButton.disabled = true;
-            optionButton.classList.add('is-disabled')
-        })
-    }
+    // const lockOptions = () => {
+    //     const optionButtons = document.querySelectorAll('.optionButton');
+    //     optionButtons.forEach(optionButton => {
+    //         optionButton.disabled = true;
+    //         optionButton.classList.add('is-disabled')
+    //     })
+    // }
 
-    const recordAnswer = (button, answer) => {
-        button.classList.remove('is-primary');
+    const recordAnswer = answer => {
+
+        // button.classList.remove('is-primary');
+
         // const updatedScore = currentScore + (counter * 10);
         // currentScore = updatedScore;
         // document.querySelector('.score').classList.add('scoreChange');
         // document.querySelector('.score').innerText = updatedScore;
-        lockOptions();
+
+        // lockOptions();
+
         answers[currentQuestion] = answer;
         const updates = {};
         updates[userRecord] = answers;
@@ -159,6 +163,7 @@ import { dbRef, get, push, update } from "./firebase.js";
         const optionButtons = document.querySelectorAll('.optionButton');
         optionButtons.forEach((optionButton, index) => {
             optionButton.classList.remove('is-disabled');
+            optionButton.classList.remove('is-success');
             const optionClasses = [...optionButton.classList];
             if (!optionClasses.includes('is-primary')) {
                 optionButton.classList.add('is-primary');
@@ -166,17 +171,27 @@ import { dbRef, get, push, update } from "./firebase.js";
             optionButton.disabled = false;
             optionButton.innerText = results[currentQuestion].options[index];
             optionButton.addEventListener('click', e => {
-                const answer = e.target.innerText;
-                e.stopImmediatePropagation();
-                recordAnswer(e.target, answer);
+                optionButtons.forEach((optionButton, index) => {
+                    optionButton.classList.remove('is-success');
+                    optionButton.classList.add('is-primary');
+                })
+                e.target.classList.remove('is-primary');
+                e.target.classList.add('is-success');
+
+// find element with is-success, get innerText, save as answer
+
+
+                // const answer = e.target.innerText;
+                // e.stopImmediatePropagation();
+                // recordAnswer(e.target, answer);
             })
         })
         setTimeout(() => {
             document.querySelector('.screen').classList.toggle('questionStart');
         }, 1500)
-        setTimeout(() => {
-            setCounter();
-        },2000)
+        // setTimeout(() => {
+        //     setCounter();
+        // },2000)
     }
 
     // const allDone = () => {
@@ -235,7 +250,7 @@ import { dbRef, get, push, update } from "./firebase.js";
         }, 1500)
         document.querySelector('.done').addEventListener('click', () => {
             const userName = document.querySelector('#name_field').value;
-            if (userName == null || userName == undefined || userName == '') {
+            if (userName == null || userName == undefined) {
                 document.querySelector('.error').style.visibility = 'visible';
             } else {
                 document.querySelector('.error').style.visibility = 'hidden';
@@ -246,31 +261,32 @@ import { dbRef, get, push, update } from "./firebase.js";
                 document.querySelector('.enterYourName').classList.toggle('questionStart');
                 setTimeout(() => {
                     document.querySelector('.enterYourName').style.display = 'none';
-                    getHighScores();
+                    // getHighScores();
+                    highScoreScreen();
                 }, 1500)
                 return update(dbRef, updates);
             }
         })
     }
 
-    const getHighScores = () => {
-        get(dbRef).then((snapshot) => {
-            if(snapshot.exists()){
-                const fullDB = snapshot.val();
-                const leaderboard = [];
-                for (let entry in fullDB) {
-                    const singleUser = {};
-                    singleUser.userName = fullDB[entry].userName.toUpperCase();
-                    singleUser.score = fullDB[entry].score;
-                    leaderboard.push(singleUser);
-                }
-                leaderboard.sort((a, b) => b.score - a.score);
-                highScoreScreen(leaderboard, answers.userName);
-            } else {
-                console.log("No data available")
-            }
-        })
-    }
+    // const getHighScores = () => {
+    //     get(dbRef).then((snapshot) => {
+    //         if(snapshot.exists()){
+    //             const fullDB = snapshot.val();
+    //             const leaderboard = [];
+    //             for (let entry in fullDB) {
+    //                 const singleUser = {};
+    //                 singleUser.userName = fullDB[entry].userName.toUpperCase();
+    //                 singleUser.score = fullDB[entry].score;
+    //                 leaderboard.push(singleUser);
+    //             }
+    //             leaderboard.sort((a, b) => b.score - a.score);
+    //             highScoreScreen(leaderboard, answers.userName);
+    //         } else {
+    //             console.log("No data available")
+    //         }
+    //     })
+    // }
 
     const highScoreScreen = (leaderboard, userName) => {
         // const scoreList = document.querySelector('.scoreList');
@@ -299,7 +315,7 @@ import { dbRef, get, push, update } from "./firebase.js";
 
     const nextQuestion = () => {
         currentQuestion++;
-        clearInterval(timerCounter);
+        // clearInterval(timerCounter);
         if (currentQuestion == Object.keys(results).length + 1) {
             enterNameScreen();
         } else {
@@ -310,12 +326,18 @@ import { dbRef, get, push, update } from "./firebase.js";
     
     const nextButton = document.querySelector('.nextQuestion');
     nextButton.addEventListener('click', () => {
+
+        const answer = document.querySelector('.is-success').innerText;
+        recordAnswer(answer);
+
         advanceQuestion(currentQuestion);
+
         // document.querySelector('.score').classList.remove('scoreChange');
+
         document.querySelector('.screen').classList.toggle('questionStart');
         document.querySelector('.prompt').classList.toggle('questionStart');
         setTimeout(() => {
-            document.querySelector('.nes-progress').value = counter;
+            // document.querySelector('.nes-progress').value = counter;
             nextQuestion(currentQuestion);
         }, 1500)
     })
