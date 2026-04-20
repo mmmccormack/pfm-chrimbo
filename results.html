@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./style.css">
+    <title>PFM PEI Emoji Results</title>
+</head>
+<style>
+    @keyframes popup {
+        0% {
+            opacity: 0;
+            top: 0%;
+        }
+        50% {
+            opacity: 1;
+            top: -7%;
+        }
+        100% {
+            opacity: 0;
+            top: -15%;
+        }
+    }
+    .screen {
+        position: relative;
+    }
+    .displayScore {
+        position: absolute;
+        right: 0;
+        opacity: 0;
+    }
+    .popup {
+        animation: popup 2s linear;
+        animation-iteration-count: 1;
+    }
+</style>
+<body>
+    <div class="wrapper">
+        <div class="prompt">
+            <div class="question">What does this Slackmoji mean to&nbsp;you?</div>
+            <div class="emoji"></div>
+        </div>
+        <div class="screen">
+            
+            <div class="response response1">
+                <span></span>
+                <div class="displayScore popup">Peter +500</div>
+            </div>
+            <progress class="option1 nes-progress" value="" max="100"></progress>
+            <div class="response response2"></div>
+            <progress class="option2 nes-progress" value="" max="100"></progress>
+            <div class="response response3"></div>
+            <progress class="option3 nes-progress" value="" max="100"></progress>
+            <div class="response response2"></div>
+            <progress class="option4 nes-progress" value="" max="100"></progress>
+        </div>
+        <button class="nes-btn">Next</button>
+    </div>
+</body>
+<script type="module" src="./firebase.js"></script>
+<script type="module" src="./results.js"></script>
+</html>
