@@ -3,55 +3,55 @@ import { dbRef, get, push, update } from "./firebase.js";
     const results = {
         1 : {
             'emoji' : `<img src="https://a.slack-edge.com/production-standard-emoji-assets/15.0/apple-medium/1f635-200d-1f4ab@2x.png">`,
-            'options' : ['dizzy', 'overwhelmed', 'stressed', 'overexcited'],
+            'options' : ['I`m dizzy thinking about it', 'This is overwhelming', 'overexcited', 'I`m stressed'],
         },
         2 : {
             'emoji' : `<img src="https://a.slack-edge.com/production-standard-emoji-assets/15.0/apple-medium/1fae0@2x.png">`,
-            'options' : ['sunny', 'melted', 'tired', 'overworked'],
+            'options' : ['It`s too sunny', 'I`ve literally melted', 'I`m tired', 'I`m feeling overworked'],
         },
         3 : {
             'emoji' : `<img src="https://emoji.slack-edge.com/T23RE8G4F/huh/9f8973e6d1a3f410.gif">`,
-            'options' : ['look at that!', 'huh?', 'I don`t know', 'I just woke up'],
+            'options' : ['Huh, look at that!', 'Huh? I`m baffled', 'I don`t know', 'The coffee is just starting to hit'],
         },
         4 : {
             'emoji' : `<img src="https://a.slack-edge.com/production-standard-emoji-assets/15.0/apple-medium/1f64f-1f3fc@2x.png">`,
-            'options' : ['thanks', 'bless you', 'prayer', 'high five'],
+            'options' : ['Thank you so much', 'Bless you', 'Thoughts and prayers', 'High five!'],
         },
         5 : {
             'emoji' : `<img src="https://emoji.slack-edge.com/T018726P2RY/fancy_cat/e95bdd0739e6dc0b.png">`,
-            'options' : ['here`s to you!', 'formal event', 'ooh, so fancy', 'tuxedo cat'],
+            'options' : ['Cheers to you!', 'This will be a formal event', 'Ooh, so fancy', 'Tuxedo cat confirms'],
         },
         6 : {
             'emoji' : `<img src="https://emoji.slack-edge.com/T018726P2RY/nope/1f7bdf186ab63924.gif">`,
-            'options' : ['I didn`t do it', 'no', 'it wasn`t me', 'I don`t know'],
+            'options' : ['Not it', 'Just no', 'It wasn`t me', 'I don`t know'],
         },
         7 : {
             'emoji' : `<img src="https://emoji.slack-edge.com/T018726P2RY/potato_spin/141f1ecb060dbe67.gif">`,
-            'options' : ['today is crazy', 'I`m feeling rushed', `overwhelmed`, 'I love potatoes'],
+            'options' : ['This is chaos', 'I`m feeling rushed', 'I don`t know what to do', 'Sending potato energy'],
         },
         8 : {
             'emoji' : `<img src="https://emoji.slack-edge.com/T018726P2RY/keanu-thanks/101cac237d80f62e.gif">`,
-            'options' : ['I love Keanu', 'you`re the best', 'thank you so much', 'totally bodacious'],
+            'options' : ['I love Keanu', 'You`re the best', 'Thank you so much', 'Totally bodacious'],
         },
         9 : {
             'emoji' : `<img src="https://emoji.slack-edge.com/T018726P2RY/incel-clippy/32f1068f64224633.gif">`,
-            'options' : ['I hate technology', 'someone is a jerk', 'this isn`t working', 'I`m mad at computer'],
+            'options' : ['They`re watching', 'Someone/thing is a jerk', 'This is not working', 'I am mad at computer/technology'],
         },
         10 : {
             'emoji' : `<img src="https://a.slack-edge.com/production-standard-emoji-assets/15.0/apple-medium/2705@2x.png">`,
-            'options' : ['looks good', 'this is done', 'working on it', 'I agree with this'],
+            'options' : ['Looks good', 'This is done', 'Working on it', 'I agree with this'],
         },
         11 : {
             'emoji' : `<img src="https://emoji.slack-edge.com/T018726P2RY/ok_cry/b50a9471c9b010ec.png">`,
-            'options' : ['I`m sad', 'I don`t like this', `frustrated`, 'this is NOT okay'],
+            'options' : ['I`m sad, okay?', 'I don`t like what`s happening', 'This is frustrating, but I`ve accepted it', 'This is not okay'],
         },
         12 : {
-            'emoji' : `<img src="https://emoji.slack-edge.com/T018726P2RY/coffee_dance/c43c1c0d06cc7b75.gif">`,
-            'options' : ['I like coffee', 'I need coffee', 'I have coffee', 'gone to get coffee'],
+            'emoji' : `<img src="https://a.slack-edge.com/production-standard-emoji-assets/15.0/apple-medium/1f440@2x.png">`,
+            'options' : ['Yikes', 'Confirmation, this has been reviewed', 'Looking for tea', 'I`m looking at this now'],
         },
         13 : {
-            'emoji' : `<img src="https://a.slack-edge.com/production-standard-emoji-assets/15.0/apple-medium/1f440@2x.png">`,
-            'options' : ['uh oh', 'look at that!', 'somebody did something', 'I`m looking now'],
+            'emoji' : `<img src="https://emoji.slack-edge.com/T018726P2RY/coffee_dance/c43c1c0d06cc7b75.gif">`,
+            'options' : ['I like coffee', 'I need coffee', 'You need coffee', 'Peak energy!'],
         },
     }
 

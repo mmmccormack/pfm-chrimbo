@@ -168,6 +168,7 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}bo
     }
     .openingScreen h3 {
         margin: 20px auto;
+        font-size: 90%;
     }
     h4 {
         font-size: 75%;
@@ -329,6 +330,7 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}bo
     }
     .screen .nes-btn {
         margin-top: 20px;
+        font-size: small;
     }
     .madLibsScreen {
         align-items: center;

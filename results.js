@@ -2,83 +2,82 @@ import { dbRef, get } from "./firebase.js";
 
     const results = {
         1 : {
-            'dizzy' : 0,
-            'overwhelmed' : 0,
-            'stressed' : 0,
+            'I`m dizzy thinking about it' : 0,
+            'This is overwhelming' : 0,
             'overexcited' : 0,
+            'I`m stressed' : 0,
         },
         2 : {
-            'sunny' : 0,
-            'melted' : 0,
-            'tired' : 0,
-            'overworked' : 0,
+            'It`s too sunny' : 0,
+            'I`ve literally melted' : 0,
+            'I`m tired' : 0,
+            'I`m feeling overworked' : 0,
         },
         3 : {
-            'look at that!' : 0,
-            'huh?' : 0,
+            'Huh, look at that!' : 0,
+            'Huh? I`m baffled' : 0,
             'I don`t know' : 0,
-            'I just woke up' : 0,
+            'The coffee is just starting to hit' : 0,
         },
         4 : {
-            'thanks' : 0,
-            'bless you' : 0,
-            'prayer' : 0,
-            'high five' : 0,
+            'Thank you so much' : 0,
+            'Bless you' : 0,
+            'Thoughts and prayers' : 0,
+            'High five!' : 0,
         },
         5 : {
-            'here`s to you!' : 0,
-            'formal event' : 0,
-            'ooh, so fancy' : 0,
-            'tuxedo cat' : 0,
+            'Cheers to you!' : 0,
+            'This will be a formal event' : 0,
+            'Ooh, so fancy' : 0,
+            'Tuxedo cat confirms' : 0,
         },
         6 : {
-            'I didn`t do it' : 0,
-            'no' : 0,
-            'it wasn`t me' : 0,
+            'Not it' : 0,
+            'Just no' : 0,
+            'It wasn`t me' : 0,
             'I don`t know' : 0,
         },
         7 : {
-            'today is crazy' : 0,
+            'This is chaos' : 0,
             'I`m feeling rushed' : 0,
-            'overwhelmed' : 0,
-            'I love potatoes' : 0,
+            'I don`t know what to do' : 0,
+            'Sending potato energy' : 0,
         },
         8 : {
             'I love Keanu' : 0,
-            'you`re the best' : 0,
-            'thank you so much' : 0,
-            'totally bodacious' : 0,
+            'You`re the best' : 0,
+            'Thank you so much' : 0,
+            'Totally bodacious' : 0,
         },
         9 : {
-            'I hate technology' : 0,
-            'someone is a jerk' : 0,
-            'this isn`t working' : 0,
-            'I`m mad at computer' : 0,
+            'They`re watching' : 0,
+            'Someone/thing is a jerk' : 0,
+            'This is not working' : 0,
+            'I am mad at computer/technology' : 0,
         },
         10 : {
-            'looks good' : 0,
-            'this is done' : 0,
-            'working on it' : 0,
+            'Looks good' : 0,
+            'This is done' : 0,
+            'Working on it' : 0,
             'I agree with this' : 0,
         },
         11 : {
-            'I`m sad' : 0,
-            'I don`t like this' : 0,
-            'frustrated' : 0,
-            'this is NOT okay' : 0,
+            'I`m sad, okay?' : 0,
+            'I don`t like what`s happening' : 0,
+            'This is frustrating, but I`ve accepted it' : 0,
+            'This is not okay' : 0,
         },
         12 : {
-            'I like coffee' : 0,
-            'I need coffee' : 0,
-            'I have coffee' : 0,
-            'gone to get coffee' : 0,
+            'Yikes' : 0,
+            'Confirmation, this has been reviewed' : 0,
+            'Looking for tea' : 0,
+            'I`m looking at this now' : 0,
         },
         13 : {
-            'uh oh' : 0,
-            'look at that!' : 0,
-            'somebody did something' : 0,
-            'I`m looking now' : 0,
-            '' : 0,
+            'I like coffee' : 0,
+            'I need coffee' : 0,
+            'You need coffee' : 0,
+            'Peak energy!' : 0,
         },
     }
 
@@ -122,10 +121,8 @@ import { dbRef, get } from "./firebase.js";
                             answerKey[actualAnswer] = numberOfResponses;
                         }
                     }
-                    console.log(results)
                 })
             }
-            console.log(fullDB)
         } else {
             console.log("No data available")
         }
@@ -149,7 +146,6 @@ import { dbRef, get } from "./firebase.js";
             option.style.margin = `10px auto`;
             const percentage = Math.round((responseNumbers[index] / totalResponses) * 100);
             option.value = `0`;
-            // console.log(option)
             option.previousElementSibling.innerHTML = `${possibleResponses[index]} - 0%`;
             if (percentage != 0) {
                 setTimeout(() => {
@@ -199,8 +195,6 @@ import { dbRef, get } from "./firebase.js";
         let responseNumbers = [];
         for (let response in results[questionNumber]) responseNumbers.push(results[questionNumber][response]);
         const totalResponses = responseNumbers.reduce((acc, current) => acc + current);
-        console.log({totalResponses})
-        console.log({responseNumbers})
         displayResults(responseNumbers, totalResponses)
     }
 
